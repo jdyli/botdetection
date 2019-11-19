@@ -9,7 +9,7 @@ from lsa import latent_semantic_analysis, frequency_distribution
 import re
 
 def create_dataframe(column_names):
-    dirname = os.path.abspath(os.path.curdir) + '/pan19-author-profiling-training-2019-02-18/en/'
+    dirname = os.path.abspath(os.path.curdir) + 'data/'
     tweets_df = pd.DataFrame(columns = column_names)
     
     tables = [line.rstrip('\n').replace(':', ' ').replace(':', ' ').split() for line in open(dirname + 'truth-train.txt')]
@@ -19,7 +19,7 @@ def create_dataframe(column_names):
 
 # used for the statistical features
 def open_for_exploring():
-    dirname = os.path.abspath(os.path.dirname(__file__) + 'pan19-author-profiling-training-2019-02-18/en/')
+    dirname = os.path.abspath(os.path.dirname(__file__) + 'data/')
     (tweets_df, tables) = create_dataframe(['username', 'hashtags', 'retweets', 'url', 'punctuations', 'sentence_length','emoji', 'label'])
     for table in tables:
         files = [dirname + '/' + i for i in os.listdir(dirname) if i.endswith(table[0] + ".xml")]
@@ -43,7 +43,7 @@ def open_for_exploring():
 def open_for_content_features():
     
     (tweets_df, tables) = create_dataframe(['username', 'levenshtein', 'polarity', 'subjectivity', 'possession', 'flesch_reading', 'label'])
-    dirname = os.path.abspath(os.path.curdir) + '/pan19-author-profiling-training-2019-02-18/en/'
+    dirname = os.path.abspath(os.path.curdir) + 'data/'
     for table in tables:
         files = [dirname + i for i in os.listdir(dirname) if i.endswith(table[0] + ".xml")]
         for file in files:
